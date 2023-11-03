@@ -33,6 +33,7 @@ public class AssertGoodCode {
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         //get the start link from conf.properties file
         driver.get(ConfProperties.getProperty("homepage"));
+
     }
 
     @Test

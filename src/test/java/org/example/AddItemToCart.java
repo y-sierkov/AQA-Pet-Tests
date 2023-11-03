@@ -70,6 +70,7 @@ public class AddItemToCart {
         String actualTotalCartValue = shoppingCart.getTotalCartValue();
 
         Assert.assertEquals(actualTotalCartValue, expectedNewXboxPrice);
+
     }
 
     @AfterClass

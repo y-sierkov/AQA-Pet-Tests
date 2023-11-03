@@ -21,4 +21,5 @@ public class IPhonePage {
         String actualCodeIPhone15Plus256GBGreen = codeIPhone15Plus256GBGreen.getText();
         return actualCodeIPhone15Plus256GBGreen;
     }
+
 }

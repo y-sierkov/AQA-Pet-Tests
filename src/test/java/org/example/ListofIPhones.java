@@ -19,4 +19,5 @@ public class ListofIPhones {
     public WebElement getiPhone15Plus256GBGreen() {
         return iPhone15Plus256GBGreen;
     }
+
 }

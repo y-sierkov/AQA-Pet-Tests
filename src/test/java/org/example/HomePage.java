@@ -6,9 +6,6 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 public class HomePage {
-
-
-    // class constructor for field initialization
     public WebDriver driver;
 
     public HomePage(WebDriver driver) {
@@ -24,30 +21,20 @@ public class HomePage {
     }
 
     public String getSearchFieldPlaceholder() {
-        String placeHolderText = searchField.getAttribute("placeholder");
-        return placeHolderText;
+        return searchField.getAttribute("placeholder");
     }
 
-    @FindBy(xpath = "//a[@href='/uk/search/?q=iPhone%2015']")
+    @FindBy(xpath = "//div[contains(@class,'ShowAllLinkWrapper')]/a")
     private WebElement showAllItems;
 
     public void clickShowAllItemsLink() {
         showAllItems.click();
     }
 
-    @FindBy(xpath = "//span[contains(text(),'APPLE iPhone 15 Plus 256GB Green')]")
-    private WebElement iPhone15Plus256GBGreen;
-
-    public void clickiPhone15Plus256GBGreen() {
-        iPhone15Plus256GBGreen.click();
-    }
-
-    @FindBy(xpath = "//p[text()='Ігрова зона']/ancestor::a")
+    @FindBy(xpath = "//a[@href='/uk/node/c1285101/']")
     private WebElement playZoneLink;
 
     public void clickPlayZoneLink() {
         playZoneLink.click();
     }
-
-
 }

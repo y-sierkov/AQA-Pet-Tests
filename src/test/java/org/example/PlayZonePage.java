@@ -14,19 +14,17 @@ public class PlayZonePage {
         this.driver = driver;
     }
 
-    @FindBy (xpath = "//span[text()='Ігрові консолі']/parent::a[@href='/uk/gaming_consoles/c1284951/']")
+    @FindBy(xpath = "//a[@href='/uk/gaming_consoles/c1284951/']/span[contains(@class,'subtitle')]")
     private WebElement gameConsoles;
 
-    public void clickGameConsolesLink () {
+    public void clickGameConsolesLink() {
         gameConsoles.click();
     }
 
-    @FindBy (xpath = "//span[contains(text(),'MICROSOFT Xbox Series X 1TB')]/parent::a[@href='/uk/konsoli-xbox-series-x/p71410857/']")
+    @FindBy(xpath = "//a[@href='/uk/konsoli-xbox-series-x/p71410857/']/span")
     private WebElement xBox1Tb;
 
-    public void clickOnXbox1TbLink () {
+    public void clickOnXbox1TbLink() {
         xBox1Tb.click();
     }
-
-
 }

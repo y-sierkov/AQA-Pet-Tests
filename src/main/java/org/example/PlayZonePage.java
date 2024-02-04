@@ -17,12 +17,12 @@ public class PlayZonePage {
     @FindBy(xpath = "//a[@href='/uk/gaming_consoles/c1284951/']/span[contains(@class,'subtitle')]")
     private WebElement gameConsoles;
 
+    @FindBy(xpath = "//a[@href='/uk/konsoli-xbox-series-x/p71410857/']/span")
+    private WebElement xBox1Tb;
+
     public void clickGameConsolesLink() {
         gameConsoles.click();
     }
-
-    @FindBy(xpath = "//a[@href='/uk/konsoli-xbox-series-x/p71410857/']/span")
-    private WebElement xBox1Tb;
 
     public void clickOnXbox1TbLink() {
         xBox1Tb.click();

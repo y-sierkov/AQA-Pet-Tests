@@ -22,33 +22,33 @@ public class ProductPage {
     @FindBy(xpath = "//div[@class='goods-code']/span")
     private WebElement productCode;
 
+    @FindBy(xpath = "//div[@class='old-price-value']/span[@class='value']")
+    private static WebElement oldProductPrice;
+
+    @FindBy(xpath = "//div[@class='price-value difference']/span[@class='value']")
+    private static WebElement newProductPrice;
+
+    @FindBy(xpath = "//div[@class='button']")
+    private WebElement buyButton;
+
+    @FindBy(xpath = "//button[@class='basket-button']")
+    private WebElement goToCartBtn;
+
     public String getProductCode() {
         return productCode.getText();
     }
-
-    @FindBy(xpath = "//div[@class='old-price-value']/span[@class='value']")
-    private static WebElement oldProductPrice;
 
     public static String getOldProductPrice() {
         return oldProductPrice.getText();
     }
 
-    @FindBy(xpath = "//div[@class='price-value difference']/span[@class='value']")
-    private static WebElement newProductPrice;
-
     public static String getNewProductPrice() {
         return newProductPrice.getText();
     }
 
-    @FindBy(xpath = "//div[@class='button']")
-    private WebElement buyButton;
-
     public void clickBuyButton() {
         buyButton.click();
     }
-
-    @FindBy(xpath = "//button[@class='basket-button']")
-    private WebElement goToCartBtn;
 
     public void clickGoToCartBtn() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));

@@ -1,24 +1,24 @@
 package org.example;
 
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class ListofIPhones {
+
+public class ShoppingCartPage {
     public WebDriver driver;
 
-    public ListofIPhones(WebDriver driver) {
+    public ShoppingCartPage(WebDriver driver) {
         PageFactory.initElements(driver, this);
         this.driver = driver;
     }
 
-    @FindBy (xpath = "//span[contains(text(),'APPLE iPhone 15 Plus 256GB Green')]")
-    private WebElement iPhone15Plus256GBGreen;
+    @FindBy(xpath = "//div[@class='total-number']/span[@class='value']")
+    private WebElement totalCartValue;
 
-    public WebElement getiPhone15Plus256GBGreen() {
-        return iPhone15Plus256GBGreen;
+    public String getTotalCartValue() {
+        return totalCartValue.getText();
     }
-
 }
-

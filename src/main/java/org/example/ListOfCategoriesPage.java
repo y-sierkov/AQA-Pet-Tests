@@ -25,6 +25,10 @@ public class ListOfCategoriesPage {
         smartPhonesLink.click();
     }
 
+    public WebElement getSmartPhonesLink() {
+        return smartPhonesLink;
+    }
+
     public void clickTvLink() {
         tvLink.click();
     }

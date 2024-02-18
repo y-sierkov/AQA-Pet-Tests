@@ -39,6 +39,10 @@ public class FiltersPage {
         minPriceField.clear();
     }
 
+    public WebElement getMinPriceField() {
+        return minPriceField;
+    }
+
     public void inputMinPrice (String minPrice) {
         minPriceField.sendKeys(minPrice);
     }
@@ -47,6 +51,10 @@ public class FiltersPage {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//input[@id='price-input-number-range-max']")));
         maxPriceField.clear();
+    }
+
+    public WebElement getMaxPriceField() {
+        return maxPriceField;
     }
 
     public void inputMaxPrice(String maxPrice) {

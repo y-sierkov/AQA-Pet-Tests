@@ -106,6 +106,10 @@ public class HomePage {
         smartphonesAndTelephonesSideLink.click();
     }
 
+    public WebElement getSmartphonesAndTelephonesSideLink () {
+        return smartphonesAndTelephonesSideLink;
+    }
+
     public void clickTvAndAudioDevicesLink() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[@href='/uk/node/c1038957/']")));

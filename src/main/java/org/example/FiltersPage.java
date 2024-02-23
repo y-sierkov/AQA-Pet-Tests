@@ -12,10 +12,12 @@ import java.time.Duration;
 
 public class FiltersPage {
     public WebDriver driver;
+    public  WaitUtils waitUtils;
 
     public FiltersPage(WebDriver driver) {
         PageFactory.initElements(driver, this);
         this.driver = driver;
+        this.waitUtils = new WaitUtils(driver);
     }
 
     @FindBy(xpath = "//input[@id='price-input-number-range-min']")
@@ -34,43 +36,34 @@ public class FiltersPage {
     private WebElement chosenFilter;
 
     public void clearMinPriceField () {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//input[@id='price-input-number-range-min']")));
-        minPriceField.clear();
-    }
-
-    public WebElement getMinPriceField() {
-        return minPriceField;
+        WebElement element = waitUtils.waitForElementToBeClickable(minPriceField);
+        element.clear();
     }
 
     public void inputMinPrice (String minPrice) {
-        minPriceField.sendKeys(minPrice);
+        WebElement element = waitUtils.waitForElementToBeClickable(minPriceField);
+        element.sendKeys(minPrice);
     }
 
     public void clearMaxPriceField() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//input[@id='price-input-number-range-max']")));
-        maxPriceField.clear();
-    }
-
-    public WebElement getMaxPriceField() {
-        return maxPriceField;
+        WebElement element = waitUtils.waitForElementToBeClickable(maxPriceField);
+        element.clear();
     }
 
     public void inputMaxPrice(String maxPrice) {
-        maxPriceField.sendKeys(maxPrice);
+        if(waitUtils.isElementValueEmpty(maxPriceField)){
+            maxPriceField.sendKeys(maxPrice);
+        }
     }
 
     public WebElement getApplyPriceBtn() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@id='price']/button")));
-        return applyPriceBtn;
+        WebElement element = waitUtils.waitForPresenceOfElement(By.xpath("//div[@id='price']/button"));
+        return element;
     }
 
     public void clickApplyPriceBtn() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//div[@id='price']/button")));
-        applyPriceBtn.click();
+        WebElement element = waitUtils.waitForElementToBeClickable(applyPriceBtn);
+        element.click();
     }
 
     public WebElement getBrandLg() {

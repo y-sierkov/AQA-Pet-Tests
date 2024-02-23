@@ -10,7 +10,7 @@ import java.time.Duration;
 import java.util.List;
 
 public class WaitUtils {
-    public WebDriver driver;
+    private WebDriver driver;
     private WebDriverWait wait;
 
     public WaitUtils(WebDriver driver) {
@@ -22,8 +22,16 @@ public class WaitUtils {
         return wait.until(ExpectedConditions.visibilityOf(element));
     }
 
+    public WebElement waitForPresenceOfElement(By locator) {
+        return wait.until(ExpectedConditions.presenceOfElementLocated(locator));
+    }
+
     public WebElement waitForElementToBeClickable(WebElement element) {
         return wait.until(ExpectedConditions.elementToBeClickable(element));
+    }
+
+    public boolean isElementValueEmpty(WebElement element) {
+        return !wait.until(ExpectedConditions.textToBePresentInElementValue(element, ""));
     }
 
     public Boolean waitForElementToHaveAttribute(WebElement element, String attributeName, String expectedValue) {

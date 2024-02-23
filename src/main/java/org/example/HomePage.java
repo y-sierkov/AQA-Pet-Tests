@@ -13,10 +13,12 @@ import java.util.List;
 
 public class HomePage {
     public WebDriver driver;
+    public WaitUtils waitUtils;
 
     public HomePage(WebDriver driver) {
         PageFactory.initElements(driver, this);
         this.driver = driver;
+        this.waitUtils = new WaitUtils(driver);
     }
 
     @FindBy(xpath = "//input[@type='search']")
@@ -101,13 +103,8 @@ public class HomePage {
     }
 
     public void clickSmartphonesAndTelephonesSideLink() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.elementToBeClickable(smartphonesAndTelephonesSideLink));
-        smartphonesAndTelephonesSideLink.click();
-    }
-
-    public WebElement getSmartphonesAndTelephonesSideLink () {
-        return smartphonesAndTelephonesSideLink;
+        WebElement element = waitUtils.waitForElementToBeClickable(smartphonesAndTelephonesSideLink);
+        element.click();
     }
 
     public void clickTvAndAudioDevicesLink() {

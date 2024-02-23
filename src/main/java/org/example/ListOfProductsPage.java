@@ -14,10 +14,12 @@ import java.util.List;
 
 public class ListOfProductsPage {
     public static WebDriver driver;
+    public static WaitUtils waitUtils;
 
     public ListOfProductsPage(WebDriver driver) {
         PageFactory.initElements(driver, this);
         this.driver = driver;
+        this.waitUtils = new WaitUtils(driver);
     }
 
     @FindBy(xpath = "//a[contains(@href,'/uk/smartfon-apple-iphone-15-plus-256gb-green')]/span")
@@ -42,9 +44,8 @@ public class ListOfProductsPage {
     }
 
     public static String getHeaderText() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//div[contains(@class,'gridContainer')]//h1")));
-        return headerText.getText();
+        WebElement element = waitUtils.waitForVisibilityOfElement(headerText);
+        return element.getText();
     }
 
     public WebElement getSortByPriceBtn() {
@@ -52,17 +53,13 @@ public class ListOfProductsPage {
     }
 
     public void clickSortByPriceBtn() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        ExpectedCondition<WebElement> buttonClickable = ExpectedConditions.elementToBeClickable(By.xpath("(//div[contains(@class,'FilterItem')])[2]"));
-        ExpectedCondition<WebElement> buttonVisible = ExpectedConditions.visibilityOf(sortByPriceBtn);
-        wait.until(ExpectedConditions.and(buttonClickable, buttonVisible));
-        sortByPriceBtn.click();
+        WebElement element = waitUtils.waitForElementToBeClickable(sortByPriceBtn);
+        element.click();
     }
 
     public List<WebElement> getPriceElements() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//div[contains(@class,'CollectionList')]//div/span[contains(@class,'ui-library-subtitle')]")));
-        return driver.findElements(By.xpath("//div[contains(@class,'CollectionList')]//div/span[contains(@class,'ui-library-subtitle')]"));
+        List<WebElement> elements = waitUtils.waitForAllElementsToBePresent(By.xpath("//div[contains(@class,'CollectionList')]//div/span[contains(@class,'ui-library-subtitle')]"));
+        return elements;
     }
 
     public List<WebElement> getProductNameElements() {

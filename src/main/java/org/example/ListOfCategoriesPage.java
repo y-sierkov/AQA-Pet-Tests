@@ -9,10 +9,12 @@ import org.openqa.selenium.support.PageFactory;
 public class ListOfCategoriesPage {
 
     public WebDriver driver;
+    public  WaitUtils waitUtils;
 
     public ListOfCategoriesPage(WebDriver driver) {
         PageFactory.initElements(driver, this);
         this.driver = driver;
+        this.waitUtils = new WaitUtils(driver);
     }
 
     @FindBy(xpath = "(.//a[@href='/uk/smartphones/c1038946/'])[2]")
@@ -22,11 +24,8 @@ public class ListOfCategoriesPage {
     private WebElement tvLink;
 
     public void clickSmartPhonesLink() {
-        smartPhonesLink.click();
-    }
-
-    public WebElement getSmartPhonesLink() {
-        return smartPhonesLink;
+        WebElement element = waitUtils.waitForElementToBeClickable(smartPhonesLink);
+        element.click();
     }
 
     public void clickTvLink() {

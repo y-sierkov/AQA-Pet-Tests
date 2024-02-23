@@ -13,7 +13,6 @@ public class SortingTests extends Setup {
     public static ListOfProductsPage listOfProductsPage;
     public static FiltersPage filtersPage;
     public static ListOfCategoriesPage listOfCategoriesPage;
-    public static WaitUtils waitUtils;
 
     @Test(description = "Test scenario to check price sorting functionality in ascending order")
     public void PriceSortingAscTest() {
@@ -22,21 +21,14 @@ public class SortingTests extends Setup {
         listOfProductsPage = new ListOfProductsPage(driver);
         filtersPage = new FiltersPage(driver);
         listOfCategoriesPage = new ListOfCategoriesPage(driver);
-        waitUtils = new WaitUtils(driver);
-
-        waitUtils.waitForElementToBeClickable(homePage.getSmartphonesAndTelephonesSideLink());
 
         homePage.clickSmartphonesAndTelephonesSideLink();
-
-        waitUtils.waitForElementToBeClickable(listOfCategoriesPage.getSmartPhonesLink());
 
         listOfCategoriesPage.clickSmartPhonesLink();
 
         Actions actions = new Actions(driver);
         actions.moveToElement(filtersPage.getApplyPriceBtn());
         actions.perform();
-
-        waitUtils.waitForVisibilityOfElement(filtersPage.getMaxPriceField());
 
         filtersPage.clearMaxPriceField();
 
@@ -46,10 +38,6 @@ public class SortingTests extends Setup {
 
         filtersPage.inputMaxPrice(maxPriceToSend);
 
-        waitUtils.waitForVisibilityOfElement(filtersPage.getMinPriceField());
-
-//        waitUtils.waitForElementToHaveAttribute(filtersPage.getMaxPriceField(), "value", maxPriceToSend);
-
         filtersPage.clearMinPriceField();
 
         int expectedMinPrice = 10000;
@@ -57,8 +45,6 @@ public class SortingTests extends Setup {
         String minPriceToSend = Integer.toString(expectedMinPrice);
 
         filtersPage.inputMinPrice(minPriceToSend);
-
-        waitUtils.waitForElementToBeClickable(filtersPage.getApplyPriceBtn());
 
         filtersPage.clickApplyPriceBtn();
 
@@ -72,11 +58,7 @@ public class SortingTests extends Setup {
 
         Assert.assertEquals(actualHeaderText, expectedHeaderText, "Actual header text does not match the expected one");
 
-        waitUtils.waitForElementToBeClickable(listOfProductsPage.getSortByPriceBtn());
-
         listOfProductsPage.clickSortByPriceBtn();
-
-        waitUtils.waitForAllElementsToBePresent(By.xpath("//div[contains(@class,'CollectionList')]//div/span[contains(@class,'ui-library-subtitle')]"));
 
         List<WebElement> priceElements = listOfProductsPage.getPriceElements();
 

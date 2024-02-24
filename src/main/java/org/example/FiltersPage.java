@@ -36,24 +36,21 @@ public class FiltersPage {
     private WebElement chosenFilter;
 
     public void clearMinPriceField () {
-        WebElement element = waitUtils.waitForElementToBeClickable(minPriceField);
-        element.clear();
+        WebElement element = waitUtils.waitForElementToClear(minPriceField);
     }
 
     public void inputMinPrice (String minPrice) {
-        WebElement element = waitUtils.waitForElementToBeClickable(minPriceField);
-        element.sendKeys(minPrice);
+        waitUtils.waitForElementToNotHaveText(minPriceField, minPrice);
+//        minPriceField.sendKeys(minPrice);
     }
 
     public void clearMaxPriceField() {
-        WebElement element = waitUtils.waitForElementToBeClickable(maxPriceField);
-        element.clear();
+        WebElement element = waitUtils.waitForElementToClear(maxPriceField);
     }
 
     public void inputMaxPrice(String maxPrice) {
-        if(waitUtils.isElementValueEmpty(maxPriceField)){
-            maxPriceField.sendKeys(maxPrice);
-        }
+        waitUtils.waitForElementToNotHaveText(maxPriceField, maxPrice);
+//        maxPriceField.sendKeys(maxPrice);
     }
 
     public WebElement getApplyPriceBtn() {
@@ -63,7 +60,6 @@ public class FiltersPage {
 
     public void clickApplyPriceBtn() {
         WebElement element = waitUtils.waitForElementToBeClickable(applyPriceBtn);
-        element.click();
     }
 
     public WebElement getBrandLg() {

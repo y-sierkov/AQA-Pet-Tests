@@ -22,12 +22,25 @@ public class WaitUtils {
         return wait.until(ExpectedConditions.visibilityOf(element));
     }
 
+    public String waitForElementToGetText(WebElement element) {
+        WebElement elementToGetTextFrom = wait.until(ExpectedConditions.visibilityOf(element));
+        return elementToGetTextFrom.getText();
+    }
+
     public WebElement waitForPresenceOfElement(By locator) {
         return wait.until(ExpectedConditions.presenceOfElementLocated(locator));
     }
 
+    public WebElement waitForElementToClear(WebElement element) {
+        WebElement elementToClear = wait.until(ExpectedConditions.elementToBeClickable(element));
+        elementToClear.clear();
+        return elementToClear;
+    }
+
     public WebElement waitForElementToBeClickable(WebElement element) {
-        return wait.until(ExpectedConditions.elementToBeClickable(element));
+        WebElement clickableElement = wait.until(ExpectedConditions.elementToBeClickable(element));
+        clickableElement.click();
+        return clickableElement;
     }
 
     public boolean isElementValueEmpty(WebElement element) {
@@ -39,8 +52,20 @@ public class WaitUtils {
         return wait.until(ExpectedConditions.attributeToBe(element, attributeName, expectedValue));
     }
 
-    public List<WebElement> waitForAllElementsToBePresent(By xpath) {
-        return wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(xpath));
+    public List<WebElement> waitForAllElementsToBePresentAndCollect(By xpath) {
+        List<WebElement> elements = wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(xpath));
+        return elements;
+    }
+
+    public List<WebElement> waitForAllElementsToBeVisibleAndCollect(By xpath) {
+        List<WebElement> elements = wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(xpath));
+        return elements;
+    }
+
+    public WebElement waitForElementToNotHaveText (WebElement element,String stringToSend) {
+        wait.until(ExpectedConditions.textToBePresentInElementValue(element, ""));
+        element.sendKeys(stringToSend);
+        return element;
     }
 
 }

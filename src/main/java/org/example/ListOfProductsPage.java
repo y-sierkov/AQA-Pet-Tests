@@ -44,8 +44,7 @@ public class ListOfProductsPage {
     }
 
     public static String getHeaderText() {
-        WebElement element = waitUtils.waitForVisibilityOfElement(headerText);
-        return element.getText();
+        return waitUtils.waitForElementToGetText(headerText);
     }
 
     public WebElement getSortByPriceBtn() {
@@ -53,13 +52,11 @@ public class ListOfProductsPage {
     }
 
     public void clickSortByPriceBtn() {
-        WebElement element = waitUtils.waitForElementToBeClickable(sortByPriceBtn);
-        element.click();
+        waitUtils.waitForElementToBeClickable(sortByPriceBtn);
     }
 
     public List<WebElement> getPriceElements() {
-        List<WebElement> elements = waitUtils.waitForAllElementsToBePresent(By.xpath("//div[contains(@class,'CollectionList')]//div/span[contains(@class,'ui-library-subtitle')]"));
-        return elements;
+        return waitUtils.waitForAllElementsToBePresentAndCollect(By.xpath("//div[contains(@class,'CollectionList')]//div/span[contains(@class,'ui-library-subtitle')]"));
     }
 
     public List<WebElement> getProductNameElements() {

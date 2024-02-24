@@ -104,7 +104,6 @@ public class HomePage {
 
     public void clickSmartphonesAndTelephonesSideLink() {
         WebElement element = waitUtils.waitForElementToBeClickable(smartphonesAndTelephonesSideLink);
-        element.click();
     }
 
     public void clickTvAndAudioDevicesLink() {

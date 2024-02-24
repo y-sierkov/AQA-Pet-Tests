@@ -26,9 +26,14 @@ public class SortingTests extends Setup {
 
         listOfCategoriesPage.clickSmartPhonesLink();
 
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
         Actions actions = new Actions(driver);
-        actions.moveToElement(filtersPage.getApplyPriceBtn());
-        actions.perform();
+        actions.moveToElement(filtersPage.getApplyPriceBtn()).perform();
 
         filtersPage.clearMaxPriceField();
 

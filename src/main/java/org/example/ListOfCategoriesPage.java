@@ -25,7 +25,6 @@ public class ListOfCategoriesPage {
 
     public void clickSmartPhonesLink() {
         WebElement element = waitUtils.waitForElementToBeClickable(smartPhonesLink);
-        element.click();
     }
 
     public void clickTvLink() {

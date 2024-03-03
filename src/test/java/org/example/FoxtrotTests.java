@@ -44,9 +44,7 @@ public class FoxtrotTests extends Setup {
 
         Assert.assertEquals(actualNewXboxPrice, expectedNewXboxPrice, "Actual discounted price does not match the expected one");
 
-        if (actualOldProductPrice.equalsIgnoreCase(expectedOldProductPrice) && actualNewXboxPrice.equalsIgnoreCase(expectedNewXboxPrice)) {
-            productPage.clickBuyButton();
-        }
+        productPage.clickBuyButton();
 
         productPage.clickGoToCartBtn();
 
@@ -68,13 +66,14 @@ public class FoxtrotTests extends Setup {
 
         Assert.assertEquals(actualPlaceHolderText, expectedPlaceholderText, "Actual placeholder in the Search field does not match the expected one");
 
-        homePage.inputPhoneName("iPhone 15");
+        String phoneName = "iPhone 15";
+
+        homePage.inputPhoneName(phoneName);
 
         homePage.clickShowAllItemsLink();
 
         Actions actions = new Actions(driver);
-        actions.moveToElement(listOfProductsPage.getiPhone15Plus256GBGreen());
-        actions.perform();
+        actions.moveToElement(listOfProductsPage.getiPhone15Plus256GBGreen()).perform();
 
         listOfProductsPage.clickiPhone15Plus256GBGreen();
 
@@ -112,30 +111,33 @@ public class FoxtrotTests extends Setup {
 
         List<WebElement> priceElements = homePage.getPriceElements();
 
-        List<Integer> prices = new ArrayList<>();
+        List<Integer> prices = extractPricesFromElements(priceElements);
 
         Pattern pattern = Pattern.compile("\\d+");
 
-        for (WebElement element : priceElements) {
-            String priceText = element.getText();
-            Matcher matcher = pattern.matcher(priceText);
+        boolean priceOutOfRange = isPriceOutOfRange(prices,expectedMinPrice, expectedMaxPrice);
 
-            if (matcher.find()) {
-                String match = matcher.group();
-                Integer priceValue = Integer.parseInt(match.replace(" ", ""));
-                prices.add(priceValue);
-            }
-        }
+        Assert.assertFalse(priceOutOfRange, "Product prices are not in expected range");
+    }
 
-        boolean allPricesInRange = false;
-
+    public boolean isPriceOutOfRange(List<Integer> prices, int expectedMinPrice, int expectedMaxPrice) {
+        boolean priceOutOfRange = false;
         for (int price : prices) {
-            if (price >= expectedMinPrice || price <= expectedMaxPrice) {
-                allPricesInRange = true;
+            if (price < expectedMinPrice || price > expectedMaxPrice) {
+                priceOutOfRange = true;
                 break;
             }
         }
+        return priceOutOfRange;
+    }
 
-        Assert.assertTrue(allPricesInRange, "Product prices are not in expected range");
+    public List<Integer> extractPricesFromElements(List<WebElement> elements) {
+        List<Integer> prices = new ArrayList<>();
+        for (WebElement element : elements) {
+            String priceText = element.getText();
+            Integer priceValue = Integer.parseInt(priceText.replace(" ", ""));
+            prices.add(priceValue);
+        }
+        return prices;
     }
 }

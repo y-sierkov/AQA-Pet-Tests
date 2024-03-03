@@ -7,11 +7,13 @@ import org.openqa.selenium.support.PageFactory;
 
 public class PlayZonePage {
 
-    public WebDriver driver;
+    public static WebDriver driver;
+    public static WaitUtils waitUtils;
 
     public PlayZonePage(WebDriver driver) {
         PageFactory.initElements(driver, this);
         this.driver = driver;
+        this.waitUtils = new WaitUtils(driver);
     }
 
     @FindBy(xpath = "//a[@href='/uk/gaming_consoles/c1284951/']/span[contains(@class,'subtitle')]")
@@ -21,10 +23,10 @@ public class PlayZonePage {
     private WebElement xBox1Tb;
 
     public void clickGameConsolesLink() {
-        gameConsoles.click();
+        waitUtils.waitForElementToBeClickable(gameConsoles);
     }
 
     public void clickOnXbox1TbLink() {
-        xBox1Tb.click();
+        waitUtils.waitForElementToBeClickable(xBox1Tb);
     }
 }

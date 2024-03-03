@@ -5,18 +5,17 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.time.Duration;
 import java.util.List;
 
 public class HomePage {
     public WebDriver driver;
+    public WaitUtils waitUtils;
 
     public HomePage(WebDriver driver) {
         PageFactory.initElements(driver, this);
         this.driver = driver;
+        this.waitUtils = new WaitUtils(driver);
     }
 
     @FindBy(xpath = "//input[@type='search']")
@@ -47,68 +46,57 @@ public class HomePage {
     private WebElement tvAndAudioDevicesLink;
 
     public void inputPhoneName(String phoneName) {
+        waitUtils.waitForVisibilityOfElement(searchField);
         searchField.sendKeys(phoneName);
     }
 
     public String getSearchFieldPlaceholder() {
-        return searchField.getAttribute("placeholder");
+        return waitUtils.getElementAttribute(searchField, "placeholder");
     }
 
     public void clickShowAllItemsLink() {
-        showAllItems.click();
+        waitUtils.waitForElementToBeClickable(showAllItems);
     }
 
     public void clickPlayZoneLink() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//a[@href='/uk/node/c1285101/']")));
-        playZoneLink.click();
+        waitUtils.waitForElementToBeClickable(playZoneLink);
     }
 
     public void clickGiftGeneratorBtn() {
-        giftGeneratorBtn.click();
+        waitUtils.waitForElementToBeClickable(giftGeneratorBtn);
     }
 
     public void clearMinPriceField() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("(//div[@id='range-input-price']/input)[1]")));
-        minPriceField.clear();
+        waitUtils.clearElementText(minPriceField);
     }
 
     public void clearMaxPriceField() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("(//div[@id='range-input-price']/input)[2]")));
-        maxPriceField.clear();
+        waitUtils.clearElementText(maxPriceField);
     }
 
     public void inputMinPrice(String minPrice) {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("(//div[@id='range-input-price']/input)[1]")));
+        waitUtils.waitForElementToNotHaveText(minPriceField);
         minPriceField.sendKeys(minPrice);
     }
 
     public void inputMaxPrice(String maxPrice) {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("(//div[@id='range-input-price']/input)[2]")));
+        waitUtils.waitForElementToNotHaveText(maxPriceField);
         maxPriceField.sendKeys(maxPrice);
     }
 
     public void clickGenerateBtn() {
-        generateBtn.click();
+        waitUtils.waitForElementToBeClickable(generateBtn);
     }
 
     public List<WebElement> getPriceElements() {
-        return driver.findElements(By.xpath("//div[@class='price-wrapper']/span"));
+        return waitUtils.getListOfElements(By.xpath("//div[@class='price-wrapper']/span[not(contains(@class,'ukraine-currency'))]"));
     }
 
     public void clickSmartphonesAndTelephonesSideLink() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.elementToBeClickable(smartphonesAndTelephonesSideLink));
-        smartphonesAndTelephonesSideLink.click();
+        waitUtils.waitForElementToBeClickable(smartphonesAndTelephonesSideLink);
     }
 
     public void clickTvAndAudioDevicesLink() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[@href='/uk/node/c1038957/']")));
-        tvAndAudioDevicesLink.click();
+        waitUtils.waitForElementToBeClickable(tvAndAudioDevicesLink);
     }
 }

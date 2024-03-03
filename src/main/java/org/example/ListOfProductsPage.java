@@ -5,11 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedCondition;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.time.Duration;
 import java.util.List;
 
 public class ListOfProductsPage {
@@ -36,18 +32,20 @@ public class ListOfProductsPage {
 
 
     public void clickiPhone15Plus256GBGreen() {
-        iPhone15Plus256GBGreen.click();
+        waitUtils.waitForElementToBeClickable(iPhone15Plus256GBGreen);
     }
 
     public WebElement getiPhone15Plus256GBGreen() {
+        waitUtils.waitForVisibilityOfElement(iPhone15Plus256GBGreen);
         return iPhone15Plus256GBGreen;
     }
 
     public static String getHeaderText() {
-        return waitUtils.waitForElementToGetText(headerText);
+        return waitUtils.getElementText(headerText);
     }
 
     public WebElement getSortByPriceBtn() {
+        waitUtils.waitForElementToBeClickable(sortByPriceBtn);
         return sortByPriceBtn;
     }
 
@@ -56,12 +54,10 @@ public class ListOfProductsPage {
     }
 
     public List<WebElement> getPriceElements() {
-        return waitUtils.waitForAllElementsToBePresentAndCollect(By.xpath("//div[contains(@class,'CollectionList')]//div/span[contains(@class,'ui-library-subtitle')]"));
+        return waitUtils.getListOfElements(By.xpath("//div[contains(@class,'CollectionList')]//div/span[contains(@class,'ui-library-subtitle')]"));
     }
 
     public List<WebElement> getProductNameElements() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//div[contains(@class,'CollectionList')]//span[contains(@class, 'GoodsDescription')]")));
-        return driver.findElements(By.xpath("//div[contains(@class,'CollectionList')]//span[contains(@class, 'GoodsDescription')]"));
+        return waitUtils.getListOfElements(By.xpath("//div[contains(@class,'CollectionList')]//span[contains(@class, 'GoodsDescription')]"));
     }
 }

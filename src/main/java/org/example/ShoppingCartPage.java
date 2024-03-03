@@ -8,17 +8,19 @@ import org.openqa.selenium.support.PageFactory;
 
 
 public class ShoppingCartPage {
-    public WebDriver driver;
+    public static WebDriver driver;
+    public static WaitUtils waitUtils;
 
     public ShoppingCartPage(WebDriver driver) {
         PageFactory.initElements(driver, this);
         this.driver = driver;
+        this.waitUtils = new WaitUtils(driver);
     }
 
     @FindBy(xpath = "//div[@class='total-number']/span[@class='value']")
     private WebElement totalCartValue;
 
     public String getTotalCartValue() {
-        return totalCartValue.getText();
+        return waitUtils.getElementText(totalCartValue);
     }
 }

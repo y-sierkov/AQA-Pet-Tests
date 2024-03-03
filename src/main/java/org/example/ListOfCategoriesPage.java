@@ -2,14 +2,13 @@ package org.example;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.devtools.v85.page.Page;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 public class ListOfCategoriesPage {
 
     public WebDriver driver;
-    public  WaitUtils waitUtils;
+    public WaitUtils waitUtils;
 
     public ListOfCategoriesPage(WebDriver driver) {
         PageFactory.initElements(driver, this);
@@ -24,11 +23,11 @@ public class ListOfCategoriesPage {
     private WebElement tvLink;
 
     public void clickSmartPhonesLink() {
-        WebElement element = waitUtils.waitForElementToBeClickable(smartPhonesLink);
+        waitUtils.waitForElementToBeClickable(smartPhonesLink);
     }
 
     public void clickTvLink() {
-        tvLink.click();
+        waitUtils.waitForElementToBeClickable(tvLink);
     }
 
 }

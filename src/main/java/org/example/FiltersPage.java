@@ -1,18 +1,14 @@
 package org.example;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.time.Duration;
 
 public class FiltersPage {
     public WebDriver driver;
-    public  WaitUtils waitUtils;
+    public WaitUtils waitUtils;
 
     public FiltersPage(WebDriver driver) {
         PageFactory.initElements(driver, this);
@@ -35,39 +31,40 @@ public class FiltersPage {
     @FindBy(xpath = "//div[contains(@class,'typographyContainer')]/span")
     private WebElement chosenFilter;
 
-    public void clearMinPriceField () {
-        WebElement element = waitUtils.waitForElementToClear(minPriceField);
+    public void clearMinPriceField() {
+        waitUtils.clearElementText(minPriceField);
     }
 
-    public void inputMinPrice (String minPrice) {
-        waitUtils.waitForElementToNotHaveText(minPriceField, minPrice);
-//        minPriceField.sendKeys(minPrice);
+    public void inputMinPrice(String minPrice) {
+        waitUtils.waitForElementToNotHaveText(minPriceField);
+        minPriceField.sendKeys(minPrice);
     }
 
     public void clearMaxPriceField() {
-        WebElement element = waitUtils.waitForElementToClear(maxPriceField);
+        waitUtils.clearElementText(maxPriceField);
     }
 
     public void inputMaxPrice(String maxPrice) {
-        waitUtils.waitForElementToNotHaveText(maxPriceField, maxPrice);
-//        maxPriceField.sendKeys(maxPrice);
+        waitUtils.waitForElementToNotHaveText(maxPriceField);
+        maxPriceField.sendKeys(maxPrice);
     }
 
     public WebElement getApplyPriceBtn() {
-        WebElement element = waitUtils.waitForPresenceOfElement(By.xpath("//div[@id='price']/button"));
-        return element;
+        waitUtils.waitForVisibilityOfElement(applyPriceBtn);
+        return applyPriceBtn;
     }
 
     public void clickApplyPriceBtn() {
-        WebElement element = waitUtils.waitForElementToBeClickable(applyPriceBtn);
+        waitUtils.waitForElementToBeClickable(applyPriceBtn);
     }
 
     public WebElement getBrandLg() {
+        waitUtils.waitForVisibilityOfElement(brandLg);
         return brandLg;
     }
 
     public void clickLgBrand() {
-        brandLg.click();
+        waitUtils.waitForElementToBeClickable(brandLg);
     }
 
 }

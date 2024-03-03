@@ -15,7 +15,7 @@ public class SortingTests extends Setup {
     public static ListOfCategoriesPage listOfCategoriesPage;
 
     @Test(description = "Test scenario to check price sorting functionality in ascending order")
-    public void PriceSortingAscTest() {
+    public void PriceSortingAscTest() throws InterruptedException {
 
         homePage = new HomePage(driver);
         listOfProductsPage = new ListOfProductsPage(driver);
@@ -26,14 +26,11 @@ public class SortingTests extends Setup {
 
         listOfCategoriesPage.clickSmartPhonesLink();
 
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+        Thread.sleep(3000);
 
-        Actions actions = new Actions(driver);
-        actions.moveToElement(filtersPage.getApplyPriceBtn()).perform();
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+
+        js.executeScript("arguments[0].scrollIntoView(true);", filtersPage.getApplyPriceBtn());
 
         filtersPage.clearMaxPriceField();
 
@@ -52,8 +49,6 @@ public class SortingTests extends Setup {
         filtersPage.inputMinPrice(minPriceToSend);
 
         filtersPage.clickApplyPriceBtn();
-
-        JavascriptExecutor js = (JavascriptExecutor) driver;
 
         js.executeScript("window.scrollTo(0,0);");
 
@@ -79,7 +74,7 @@ public class SortingTests extends Setup {
     }
 
     @Test(description = "Test scenario to check price sorting functionality in descending order")
-    public void PriceSortingDescTest() {
+    public void PriceSortingDescTest() throws InterruptedException {
         homePage = new HomePage(driver);
         listOfProductsPage = new ListOfProductsPage(driver);
         filtersPage = new FiltersPage(driver);
@@ -89,8 +84,11 @@ public class SortingTests extends Setup {
 
         listOfCategoriesPage.clickSmartPhonesLink();
 
-        Actions actions = new Actions(driver);
-        actions.moveToElement(filtersPage.getApplyPriceBtn());
+        Thread.sleep(3000);
+
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+
+        js.executeScript("arguments[0].scrollIntoView(true);", filtersPage.getApplyPriceBtn());
 
         filtersPage.clearMaxPriceField();
 
@@ -110,8 +108,6 @@ public class SortingTests extends Setup {
 
         filtersPage.clickApplyPriceBtn();
 
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-
         js.executeScript("window.scrollTo(0,0);");
 
         String expectedHeaderText = String.format("СМАРТФОНИ З ЦІНОЮ ВІД %s ГРН ДО %s ГРН", expectedMinPrice, expectedMaxPrice);
@@ -122,7 +118,7 @@ public class SortingTests extends Setup {
 
         listOfProductsPage.clickSortByPriceBtn();
 
-        listOfProductsPage.clickSortByPriceBtn();
+        js.executeScript("arguments[0].click();", listOfProductsPage.getSortByPriceBtn());
 
         List<WebElement> priceElements = listOfProductsPage.getPriceElements();
 
@@ -149,8 +145,7 @@ public class SortingTests extends Setup {
         listOfCategoriesPage.clickTvLink();
 
         Actions actions = new Actions(driver);
-        actions.moveToElement(filtersPage.getBrandLg());
-        actions.perform();
+        actions.moveToElement(filtersPage.getBrandLg()).perform();
 
         filtersPage.clickLgBrand();
 

@@ -1,22 +1,20 @@
 package org.example;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.time.Duration;
 
 public class ProductPage {
 
-    public WebDriver driver;
+    public static WebDriver driver;
+    public static WaitUtils waitUtils;
 
     public ProductPage(WebDriver driver) {
         PageFactory.initElements(driver, this);
         this.driver = driver;
+        this.waitUtils = new WaitUtils(driver);
     }
 
     @FindBy(xpath = "//div[@class='goods-code']/span")
@@ -35,24 +33,22 @@ public class ProductPage {
     private WebElement goToCartBtn;
 
     public String getProductCode() {
-        return productCode.getText();
+        return waitUtils.getElementText(productCode);
     }
 
     public static String getOldProductPrice() {
-        return oldProductPrice.getText();
+        return waitUtils.getElementText(oldProductPrice);
     }
 
     public static String getNewProductPrice() {
-        return newProductPrice.getText();
+        return waitUtils.getElementText(newProductPrice);
     }
 
     public void clickBuyButton() {
-        buyButton.click();
+        waitUtils.waitForElementToBeClickable(buyButton);
     }
 
     public void clickGoToCartBtn() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//button[@class='basket-button']")));
-        goToCartBtn.click();
+        waitUtils.waitForElementToBeClickable(goToCartBtn);
     }
 }
